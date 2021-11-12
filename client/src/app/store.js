@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../Counters/counterSlice";
 import booksReducer from "../Books/booksSlice";
+import authorsReducer from "../Authors/authorsSlice";
+import publishersReducer from "../Publishers/publishersSlice";
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,
         books: booksReducer,
-        genres: counterReducer,
-        publishers: counterReducer,
+        authors: authorsReducer,
+        publishers: publishersReducer,
     },
 });

@@ -1,10 +1,10 @@
 import React from "react";
-import Counter from "./Counters/Counter";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Books from "./Books/Books";
-import Authors from "./Authors/Authors";
-import Publishers from "./Publishers/Publishers";
+import Books from "./Books/books";
+import Authors from "./Authors/authors";
+import Publishers from "./Publishers/publishers";
+import Home from "./Home/home";
 
 function App() {
     return (
@@ -25,7 +25,7 @@ function App() {
             </ul>
 
             <Switch>
-                <Route exact path="/" component={Counter} />
+                <Route exact path="/" component={Home} />
                 <Route path="/books" component={Books} />
                 <Route path="/authors" component={Authors} />
                 <Route path="/publishers" component={Publishers} />
