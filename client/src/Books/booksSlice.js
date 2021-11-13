@@ -4,14 +4,14 @@ const initialState = {
     books: {
         0: {
             id: 0,
-            title: "none",
+            title: "title0",
             author: "none",
             genreID: 0,
             publisherID: 0,
         },
         1: {
             id: 1,
-            title: "none",
+            title: "title1",
             author: "none",
             genreID: 1,
             publisherID: 1,

@@ -60,7 +60,11 @@ export default function Books() {
                     </h4>
                     <h4>
                         Title:
-                        <input type="text" defaultValue={books[row].title} />
+                        <input
+                            type="text"
+                            data-testid={books[row].title}
+                            defaultValue={books[row].title}
+                        />
                     </h4>
                     <h4>
                         Author:
