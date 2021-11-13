@@ -2,11 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     books: {
-        id: 0,
-        title: "none",
-        author: "none",
-        genreID: 0,
-        authorID: 0,
+        0: {
+            id: 0,
+            title: "none",
+            author: "none",
+            genreID: 0,
+            publisherID: 0,
+        },
+        1: {
+            id: 1,
+            title: "none",
+            author: "none",
+            genreID: 1,
+            publisherID: 1,
+        },
     },
 };
 
@@ -15,7 +24,7 @@ export const booksSlice = createSlice({
     initialState,
     reducers: {
         setTitle: (state) => {
-            state.books.title = "TITLE";
+            state.books["0"].title = "TITLE";
         },
     },
 });

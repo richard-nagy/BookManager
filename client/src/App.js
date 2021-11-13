@@ -5,6 +5,7 @@ import Books from "./Books/books";
 import Authors from "./Authors/authors";
 import Publishers from "./Publishers/publishers";
 import Home from "./Home/home";
+import "./App.css";
 
 function App() {
     return (

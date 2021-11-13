@@ -1,3 +1,21 @@
-.body{
-  padding: 10px;
+.body {
+    padding: 10px;
+}
+
+table,
+td,
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 5px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.selectedRow {
+    background-color: red;
 }
