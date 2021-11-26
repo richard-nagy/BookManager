@@ -1,7 +1,9 @@
 import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateRow, selectBooks, fetchPosts } from "./booksSlice";
+import { updateRow, deleteRow, selectBooks, fetchPosts } from "./booksSlice";
 import axios from "axios";
+
+const addValues = { title: "", author: "", genreID: null, publisherID: null };
 
 export default function Books({ url }) {
     const [row, setRow] = useState("-"); // Key of the selected row
@@ -26,7 +28,7 @@ export default function Books({ url }) {
         }
     }, [url]);
 
-    const updateEmployeeWage = async (id) => {
+    const update = async () => {
         // If url exists, its a test, if not, its a real request
         if (url) {
             await axios
@@ -49,6 +51,39 @@ export default function Books({ url }) {
         }
     };
 
+    const deleteRow = async () => {
+        // If url exists, its a test, if not, its a real request
+        if (url) {
+        } else {
+            await axios
+                .delete("http://localhost:3001/delete", {
+                    data: { id: textBoxes.id },
+                })
+                .then(() => {
+                    // If update was succesful, also update redux values
+                    setRow("-");
+                    dispatch(deleteRow(textBoxes.id));
+                });
+        }
+    };
+
+    const addRow = async () => {
+        // If url exists, its a test, if not, its a real request
+        if (url) {
+        } else {
+            await axios
+                .post("http://localhost:3001/upload", {
+                    data: addValues,
+                })
+                .then(() => {
+                    // If update was succesful, also update redux values
+                    // setRow("-");
+                    // dispatch(deleteRow(textBoxes.id));
+                    console.log("yep");
+                });
+        }
+    };
+
     // Return the body of the table
     function table() {
         var text = [];
@@ -65,15 +100,15 @@ export default function Books({ url }) {
                     <td>{value.id}</td>
                     <td>{value.title}</td>
                     <td>{value.author}</td>
-                    <td>{value.genreID}</td>
-                    <td>{value.publisherID}</td>
+                    <td>{value.genre}</td>
+                    <td>{value.publisher}</td>
                 </tr>
             );
         }
         return text;
     }
 
-    function textboxCucc(e, column) {
+    function textBoxFunc(e, column) {
         setTextBoxes({
             ...textBoxes,
             [column]: e.target.value,
@@ -104,12 +139,14 @@ export default function Books({ url }) {
                         {table()}
                     </tbody>
                 </table>
+                <br />
                 {row !== "-" && (
-                    <div
+                    <fieldset
                         // Whenever the key chganges, reload the textboxes
                         // with new defaultValue
                         key={row}
                     >
+                        <legend>Edit</legend>
                         <h4>
                             ID:
                             <input
@@ -124,7 +161,7 @@ export default function Books({ url }) {
                                 type="text"
                                 data-testid={books[row].title}
                                 defaultValue={books[row].title}
-                                onChange={(e) => textboxCucc(e, "title")}
+                                onChange={(e) => textBoxFunc(e, "title")}
                             />
                         </h4>
                         <h4>
@@ -132,7 +169,7 @@ export default function Books({ url }) {
                             <input
                                 type="text"
                                 defaultValue={books[row].author}
-                                onChange={(e) => textboxCucc(e, "author")}
+                                onChange={(e) => textBoxFunc(e, "author")}
                             />
                         </h4>
                         <h4>
@@ -140,7 +177,7 @@ export default function Books({ url }) {
                             <input
                                 type="text"
                                 defaultValue={books[row].genreID}
-                                onChange={(e) => textboxCucc(e, "genreID")}
+                                onChange={(e) => textBoxFunc(e, "genreID")}
                             />
                         </h4>
                         <h4>
@@ -148,18 +185,51 @@ export default function Books({ url }) {
                             <input
                                 type="text"
                                 defaultValue={books[row].publisherID}
-                                onChange={(e) => textboxCucc(e, "publisherID")}
+                                onChange={(e) => textBoxFunc(e, "publisherID")}
                             />
                         </h4>
-                        <button
-                            onClick={() => {
-                                updateEmployeeWage();
-                            }}
-                        >
-                            Update
-                        </button>
-                    </div>
+                        <button onClick={() => update()}>Update</button>
+                        <button onClick={() => deleteRow()}>Delete</button>
+                    </fieldset>
                 )}
+                <fieldset>
+                    <legend>Add</legend>
+                    <h4>
+                        Title:
+                        <input
+                            type="text"
+                            onChange={(e) => (addValues.title = e.target.value)}
+                        />
+                    </h4>
+                    <h4>
+                        Author:
+                        <input
+                            type="text"
+                            onChange={(e) =>
+                                (addValues.author = e.target.value)
+                            }
+                        />
+                    </h4>
+                    <h4>
+                        Genre ID:
+                        <input
+                            type="text"
+                            onChange={(e) =>
+                                (addValues.genreID = e.target.value)
+                            }
+                        />
+                    </h4>
+                    <h4>
+                        Publisher ID:
+                        <input
+                            type="text"
+                            onChange={(e) =>
+                                (addValues.publisherID = e.target.value)
+                            }
+                        />
+                    </h4>
+                    <button onClick={() => addRow()}>Upload</button>
+                </fieldset>
             </div>
         );
     }

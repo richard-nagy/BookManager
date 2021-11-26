@@ -28,7 +28,7 @@ const server = setupServer(
     }),
     // Update selected row
     rest.put("/update", (req, res, ctx) => {
-        dataBase.books[req.body.value.id - 1] = req.body.value;
+        dataBase.books[req.body.value.id] = req.body.value;
         return res(ctx.json({}));
     })
 );

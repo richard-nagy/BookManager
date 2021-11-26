@@ -14,7 +14,11 @@ export const fetchPosts = createAsyncThunk("books", async (url) => {
     } else {
         // Real Axios request
         const response = await Axios.get("http://localhost:3001/books");
-        return response.data;
+        const object = {};
+        for (const [key, value] of Object.entries(response.data)) {
+            object[value.id] = value;
+        }
+        return object;
     }
 });
 
@@ -24,7 +28,11 @@ export const booksSlice = createSlice({
     reducers: {
         updateRow: (state, action) => {
             // Update selected row in redux
-            state.books[action.payload.id - 1] = action.payload;
+            state.books[action.payload.id] = action.payload;
+        },
+        deleteRow: (state, action) => {
+            // Delete delected row in redux
+            delete state.books[action.payload];
         },
     },
     extraReducers(builder) {
@@ -42,6 +50,6 @@ export const booksSlice = createSlice({
     },
 });
 
-export const { updateRow } = booksSlice.actions;
+export const { updateRow, deleteRow } = booksSlice.actions;
 export const selectBooks = (state) => state.books.books;
 export default booksSlice.reducer;
