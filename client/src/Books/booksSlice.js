@@ -6,20 +6,14 @@ const initialState = {
     status: "idle",
 };
 
-export const fetchPosts = createAsyncThunk("books", async (url) => {
-    if (url) {
-        // Mock Axios request
-        const response = await Axios.get(url);
-        return response.data.books;
-    } else {
-        // Real Axios request
-        const response = await Axios.get("http://localhost:3001/books");
-        const object = {};
-        for (const [key, value] of Object.entries(response.data)) {
-            object[value.id] = value;
-        }
-        return object;
+// Fetch data into redux
+export const fetchBooks = createAsyncThunk("books", async (url) => {
+    const response = await Axios.get("http://localhost:3001/booksSelect");
+    const object = {};
+    for (const [key, value] of Object.entries(response.data)) {
+        object[value.id] = value;
     }
+    return object;
 });
 
 export const booksSlice = createSlice({
@@ -31,20 +25,23 @@ export const booksSlice = createSlice({
             state.books[action.payload.id] = action.payload;
         },
         deleteRow: (state, action) => {
-            // Delete delected row in redux
+            // Delete selected row in redux
             delete state.books[action.payload];
         },
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchPosts.pending, (state, action) => {
+            // Loading request
+            .addCase(fetchBooks.pending, (state, action) => {
                 state.status = "loading";
             })
-            .addCase(fetchPosts.fulfilled, (state, action) => {
+            // Successful request
+            .addCase(fetchBooks.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.books = action.payload;
             })
-            .addCase(fetchPosts.rejected, (state, action) => {
+            // Failed request
+            .addCase(fetchBooks.rejected, (state, action) => {
                 state.status = "failed";
             });
     },

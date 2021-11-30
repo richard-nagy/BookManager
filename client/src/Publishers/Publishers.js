@@ -1,22 +1,16 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setPublisher, selectPublishers } from "./publishersSlice";
+import { React } from "react";
+import { useSelector } from "react-redux";
+import { selectPublishers } from "./publishersSlice";
 
 export default function Publishers() {
-    const publisher = useSelector(selectPublishers);
-    const dispatch = useDispatch();
-
-    
+    const publishers = useSelector(selectPublishers);
 
     return (
         <div>
             <h1>Publishers</h1>
-            <button onClick={() => dispatch(setPublisher())}>
+            <button onClick={() => console.log(publishers)}>
                 setPublisher
             </button>
-            <br />
-            <br />
-            publisher: {publisher}
         </div>
     );
 }
