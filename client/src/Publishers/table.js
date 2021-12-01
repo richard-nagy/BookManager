@@ -7,7 +7,7 @@ export default function Table() {
     const [row, setRow] = useState("-");
     const publishers = useSelector(selectPublishers);
 
-    // Remove selected row
+    // Unselect row
     function unselectRow() {
         setRow("-");
     }

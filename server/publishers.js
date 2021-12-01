@@ -1,5 +1,5 @@
 module.exports = function (app, db, time) {
-    // Select everything from the table
+    // Select everything from the publishers table
     app.get("/publishersSelect", (req, res) => {
         db.query("SELECT * FROM publishers", (err, result) => {
             if (err) {

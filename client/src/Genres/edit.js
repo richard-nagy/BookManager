@@ -24,7 +24,7 @@ export default function Edit({ selectedRow, unselectRow }) {
         setRow(selectedRow);
     }, [selectedRow]);
 
-    // Update row
+    // Update genre
     const update = async () => {
         await axios
             .put("http://localhost:3001/genresUpdate", {
@@ -40,7 +40,7 @@ export default function Edit({ selectedRow, unselectRow }) {
             });
     };
 
-    // Delete row
+    // Delete genre
     const delete_ = async () => {
         await axios
             .delete("http://localhost:3001/genresDelete", {

@@ -17,7 +17,7 @@ export default function Add() {
     const genres = useSelector(selectGenres);
     const dispatch = useDispatch();
 
-    // Add a new row
+    // Add a new book
     const addRow = async () => {
         await axios
             .post("http://localhost:3001/booksUpload", {

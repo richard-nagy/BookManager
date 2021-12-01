@@ -21,11 +21,11 @@ export const booksSlice = createSlice({
     initialState,
     reducers: {
         updateRow: (state, action) => {
-            // Update selected row in redux
+            // Update book in redux
             state.books[action.payload.id] = action.payload;
         },
         deleteRow: (state, action) => {
-            // Delete selected row in redux
+            // Delete book from redux
             delete state.books[action.payload];
         },
     },

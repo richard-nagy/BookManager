@@ -68,7 +68,7 @@ export default function Edit({ selectedRow, unselectRow }) {
         return text;
     }
 
-    // Update row
+    // Update book
     const update = async () => {
         await axios
             .put("http://localhost:3001/booksUpdate", {
@@ -87,7 +87,7 @@ export default function Edit({ selectedRow, unselectRow }) {
             });
     };
 
-    // Delete row
+    // Delete book
     const delete_ = async () => {
         await axios
             .delete("http://localhost:3001/booksDelete", {
@@ -116,7 +116,6 @@ export default function Edit({ selectedRow, unselectRow }) {
                         Title:
                         <input
                             type="text"
-                            data-testid={books[row].title}
                             defaultValue={books[row].title}
                             onChange={(e) => setEditValues(e, "title")}
                         />

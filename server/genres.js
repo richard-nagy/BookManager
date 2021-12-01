@@ -1,5 +1,5 @@
 module.exports = function (app, db, time) {
-    // Select everything from the table
+    // Select everything from the genres table
     app.get("/genresSelect", (req, res) => {
         db.query("SELECT * FROM genres", (err, result) => {
             if (err) {
@@ -11,7 +11,7 @@ module.exports = function (app, db, time) {
         });
     });
 
-    // Update genres
+    // Update genre
     app.put("/genresUpdate", (req, res) => {
         db.query(
             "UPDATE genres SET genre = ? WHERE id = ?",
@@ -29,7 +29,6 @@ module.exports = function (app, db, time) {
 
     // Insert new genre
     app.post("/genresUpload", (req, res) => {
-        console.log(req.body.data.genre);
         db.query(
             `INSERT INTO genres (genre) VALUES (?)`,
             [req.body.data.genre],
@@ -44,7 +43,7 @@ module.exports = function (app, db, time) {
         );
     });
 
-    // Delete row
+    // Delete genre
     app.delete("/genresDelete", (req, res) => {
         db.query(
             "DELETE FROM genres WHERE id = ?",

@@ -10,7 +10,7 @@ export default function Books() {
         state.publishers.status,
     ]);
 
-    // based on the status return a message, or the elements
+    // Based on the status return a status message, or the elements
     let content;
     if (postStatus.includes("loading")) {
         content = <div data-testid="loading">Loading...</div>;

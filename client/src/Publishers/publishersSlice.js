@@ -22,11 +22,11 @@ export const publishersSlice = createSlice({
     initialState,
     reducers: {
         updatePublisher: (state, action) => {
-            // Update genre in redux
+            // Update publisher in redux
             state.publishers[action.payload.id] = action.payload;
         },
         deletePublisher: (state, action) => {
-            // Delete selected row in redux
+            // Delete publisher from redux
             delete state.publishers[action.payload];
         },
     },

@@ -25,7 +25,7 @@ export const genresSlice = createSlice({
             state.genres[action.payload.id] = action.payload;
         },
         deleteGenre: (state, action) => {
-            // Delete selected row in redux
+            // Delete genre from redux
             delete state.genres[action.payload];
         },
     },

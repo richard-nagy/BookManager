@@ -1,5 +1,5 @@
 module.exports = function (app, db, time) {
-    // Select everything from the table
+    // Select everything from the books table
     app.get("/booksSelect", (req, res) => {
         db.query(
             "SELECT books.id, books.title, books.author, genres.genre, publishers.publisher FROM bookmanager.books " +
@@ -16,7 +16,7 @@ module.exports = function (app, db, time) {
         );
     });
 
-    // Update row
+    // Update book
     app.put("/booksUpdate", (req, res) => {
         db.query(
             "UPDATE books SET title = ?, author = ?, genreID = ?, publisherID = ? WHERE id = ?",
@@ -38,7 +38,7 @@ module.exports = function (app, db, time) {
         );
     });
 
-    // Insert new row
+    // Insert new book
     app.post("/booksUpload", (req, res) => {
         db.query(
             "INSERT INTO books (title, author, genreID, publisherID) VALUES (?, ?, ?, ?)",
@@ -59,7 +59,7 @@ module.exports = function (app, db, time) {
         );
     });
 
-    // Delete row
+    // Delete book
     app.delete("/booksDelete", (req, res) => {
         db.query(
             "DELETE FROM books WHERE id = ?",
