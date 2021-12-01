@@ -21,8 +21,13 @@ export const publishersSlice = createSlice({
     name: "publishers",
     initialState,
     reducers: {
-        setPublisher: (state) => {
-            state[1].publisher = "PUBLISHER";
+        updatePublisher: (state, action) => {
+            // Update genre in redux
+            state.publishers[action.payload.id] = action.payload;
+        },
+        deletePublisher: (state, action) => {
+            // Delete selected row in redux
+            delete state.publishers[action.payload];
         },
     },
     extraReducers(builder) {
@@ -43,6 +48,6 @@ export const publishersSlice = createSlice({
     },
 });
 
-export const { setPublisher } = publishersSlice.actions;
+export const { updatePublisher, deletePublisher } = publishersSlice.actions;
 export const selectPublishers = (state) => state.publishers.publishers;
 export default publishersSlice.reducer;
