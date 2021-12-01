@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectGenres } from "./genresSlice";
+import Edit from "./edit";
 
 export default function Table() {
     const [row, setRow] = useState("-");
@@ -42,6 +43,7 @@ export default function Table() {
                     {table()}
                 </tbody>
             </table>
+            <Edit selectedRow={row} unselectRow={unselectRow} />
         </>
     );
 }

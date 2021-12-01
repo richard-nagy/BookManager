@@ -11,6 +11,22 @@ module.exports = function (app, db, time) {
         });
     });
 
+    // Update genres
+    app.put("/genresUpdate", (req, res) => {
+        db.query(
+            "UPDATE genres SET genre = ? WHERE id = ?",
+            [req.body.value.genre, req.body.value.id],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(`${time} Succesful UPDATE in genres table!`);
+                    res.send();
+                }
+            }
+        );
+    });
+
     // Insert new genre
     app.post("/genresUpload", (req, res) => {
         console.log(req.body.data.genre);
@@ -23,6 +39,24 @@ module.exports = function (app, db, time) {
                 } else {
                     console.log(`${time} Succesful INSERT in genres table!`);
                     res.send(result);
+                }
+            }
+        );
+    });
+
+    // Delete row
+    app.delete("/genresDelete", (req, res) => {
+        db.query(
+            "DELETE FROM genres WHERE id = ?",
+            [req.body.row],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(
+                        `${time} Succesful DELETE in genres table, ID: ${req.body.row}`
+                    );
+                    res.send();
                 }
             }
         );

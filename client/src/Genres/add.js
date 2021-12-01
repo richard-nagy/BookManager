@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectGenres, updateGenres } from "./genresSlice";
+import { selectGenres, updateGenre } from "./genresSlice";
 import axios from "axios";
 
 export default function Add() {
@@ -17,7 +17,7 @@ export default function Add() {
             })
             .then((response) => {
                 dispatch(
-                    updateGenres({
+                    updateGenre({
                         id: response.data.insertId,
                         genre: addValue.genre,
                     })

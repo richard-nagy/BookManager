@@ -20,9 +20,13 @@ export const genresSlice = createSlice({
     name: "genres",
     initialState,
     reducers: {
-        updateGenres: (state, action) => {
+        updateGenre: (state, action) => {
             // Update genre in redux
             state.genres[action.payload.id] = action.payload;
+        },
+        deleteGenre: (state, action) => {
+            // Delete selected row in redux
+            delete state.genres[action.payload];
         },
     },
     extraReducers(builder) {
@@ -43,6 +47,6 @@ export const genresSlice = createSlice({
     },
 });
 
-export const { updateGenres } = genresSlice.actions;
+export const { updateGenre, deleteGenre } = genresSlice.actions;
 export const selectGenres = (state) => state.genres.genres;
 export default genresSlice.reducer;
