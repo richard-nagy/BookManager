@@ -1,14 +1,34 @@
 import { React } from "react";
-import { useDispatch } from "react-redux";
-import { setGenres } from "./genresSlice";
+import { useSelector } from "react-redux";
+import Table from "./table";
+import Add from "./add";
 
-export default function Genres() {
-    const dispatch = useDispatch();
+export default function Books() {
+    const postStatus = useSelector((state) => [
+        state.books.status,
+        state.genres.status,
+        state.publishers.status,
+    ]);
+
+    // based on the status return a message, or the elements
+    let content;
+    if (postStatus.includes("loading")) {
+        content = <div data-testid="loading">Loading...</div>;
+    } else if (postStatus.includes("failed")) {
+        content = <div>Error...</div>;
+    } else if (postStatus.includes("succeeded")) {
+        content = (
+            <div>
+                <Table />
+                <Add />
+            </div>
+        );
+    }
 
     return (
         <div>
-            <h1>genres</h1>
-            <button onClick={() => dispatch(setGenres())}>setgenres</button>
+            <h1>Genres</h1>
+            {content}
         </div>
     );
 }

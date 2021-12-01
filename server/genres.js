@@ -10,4 +10,21 @@ module.exports = function (app, db, time) {
             }
         });
     });
+
+    // Insert new genre
+    app.post("/genresUpload", (req, res) => {
+        console.log(req.body.data.genre);
+        db.query(
+            `INSERT INTO genres (genre) VALUES (?)`,
+            [req.body.data.genre],
+            (err, result) => {
+                if (err) {
+                    console.log(error);
+                } else {
+                    console.log(`${time} Succesful INSERT in genres table!`);
+                    res.send(result);
+                }
+            }
+        );
+    });
 };

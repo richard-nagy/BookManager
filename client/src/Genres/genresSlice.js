@@ -20,8 +20,9 @@ export const genresSlice = createSlice({
     name: "genres",
     initialState,
     reducers: {
-        setGenres: (state) => {
-            state.genres = "genres";
+        updateGenres: (state, action) => {
+            // Update genre in redux
+            state.genres[action.payload.id] = action.payload;
         },
     },
     extraReducers(builder) {
@@ -42,6 +43,6 @@ export const genresSlice = createSlice({
     },
 });
 
-export const { setGenres } = genresSlice.actions;
+export const { updateGenres } = genresSlice.actions;
 export const selectGenres = (state) => state.genres.genres;
 export default genresSlice.reducer;
