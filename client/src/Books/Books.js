@@ -4,15 +4,19 @@ import Add from "./add";
 import Table from "./table";
 
 export default function Books() {
-    const postStatus = useSelector((state) => state.books.status);
+    const postStatus = useSelector((state) => [
+        state.books.status,
+        state.genres.status,
+        state.publishers.status,
+    ]);
 
     // based on the status return a message, or the elements
     let content;
-    if (postStatus === "loading") {
+    if (postStatus.includes("loading")) {
         content = <div data-testid="loading">Loading...</div>;
-    } else if (postStatus === "failed") {
+    } else if (postStatus.includes("failed")) {
         content = <div>Error...</div>;
-    } else if (postStatus === "succeeded") {
+    } else if (postStatus.includes("succeeded")) {
         content = (
             <div>
                 <Table />

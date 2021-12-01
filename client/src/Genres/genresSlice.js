@@ -3,6 +3,7 @@ import Axios from "axios";
 
 const initialState = {
     genres: {},
+    status: "idle",
 };
 
 // Fetch data into redux
@@ -24,10 +25,20 @@ export const genresSlice = createSlice({
         },
     },
     extraReducers(builder) {
-        // Successful request
-        builder.addCase(fetchGenres.fulfilled, (state, action) => {
-            state.genres = action.payload;
-        });
+        builder
+            // Loading request
+            .addCase(fetchGenres.pending, (state, action) => {
+                state.status = "loading";
+            })
+            // Successful request
+            .addCase(fetchGenres.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.genres = action.payload;
+            })
+            // Failed request
+            .addCase(fetchGenres.rejected, (state, action) => {
+                state.status = "failed";
+            });
     },
 });
 

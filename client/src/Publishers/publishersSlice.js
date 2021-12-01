@@ -3,6 +3,7 @@ import Axios from "axios";
 
 const initialState = {
     publishers: {},
+    status: "idle",
 };
 
 // Fetch data into redux
@@ -25,10 +26,20 @@ export const publishersSlice = createSlice({
         },
     },
     extraReducers(builder) {
-        // Successful request
-        builder.addCase(fetchPublishers.fulfilled, (state, action) => {
-            state.publishers = action.payload;
-        });
+        builder
+            // Loading request
+            .addCase(fetchPublishers.pending, (state, action) => {
+                state.status = "loading";
+            })
+            // Successful request
+            .addCase(fetchPublishers.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.publishers = action.payload;
+            })
+            // Failed request
+            .addCase(fetchPublishers.rejected, (state, action) => {
+                state.status = "failed";
+            });
     },
 });
 

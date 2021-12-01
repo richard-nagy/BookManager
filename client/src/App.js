@@ -13,11 +13,15 @@ import { fetchGenres } from "./Genres/genresSlice";
 
 function App() {
     const dispatch = useDispatch();
-    const postStatus = useSelector((state) => state.books.status);
+    const postStatus = useSelector((state) => [
+        state.books.status,
+        state.genres.status,
+        state.publishers.status,
+    ]);
 
     // Fetch data into redux
     useEffect(() => {
-        if (postStatus === "idle") {
+        if (postStatus.includes("idle")) {
             dispatch(fetchBooks());
             dispatch(fetchPublishers());
             dispatch(fetchGenres());
