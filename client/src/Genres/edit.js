@@ -6,14 +6,14 @@ import axios from "axios";
 export default function Edit({ selectedRow, unselectRow }) {
     const [row, setRow] = useState(selectedRow);
 
-    let editValues = {};
+    let editValue = {};
 
     const genres = useSelector(selectGenres);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (genres[row]) {
-            editValues = {
+            editValue = {
                 id: genres[row].id,
                 genre: genres[row].genre,
             };
@@ -26,18 +26,36 @@ export default function Edit({ selectedRow, unselectRow }) {
 
     // Update genre
     const update = async () => {
-        await axios
-            .put("http://localhost:3001/genresUpdate", {
-                value: editValues,
-            })
-            .then(() => {
-                dispatch(
-                    updateGenre({
-                        id: editValues.id,
-                        genre: editValues.genre,
-                    })
-                );
-            });
+        let isDuplicate = false;
+        for (const [key, value] of Object.entries(genres)) {
+            if (value.genre === editValue.genre) {
+                isDuplicate = true;
+                break;
+            }
+        }
+
+        // Chcek if the texbox is empty, or if value already exists
+        if (
+            editValue.genre === "" ||
+            !editValue.genre.replace(/\s/g, "").length
+        ) {
+            alert("Error!\nEmpty textbox.");
+        } else if (isDuplicate) {
+            alert("Error!\nGiven value already exists.");
+        } else {
+            await axios
+                .put("http://localhost:3001/genresUpdate", {
+                    value: editValue,
+                })
+                .then(() => {
+                    dispatch(
+                        updateGenre({
+                            id: editValue.id,
+                            genre: editValue.genre,
+                        })
+                    );
+                });
+        }
     };
 
     // Delete genre
@@ -71,8 +89,8 @@ export default function Edit({ selectedRow, unselectRow }) {
                             type="text"
                             defaultValue={genres[row].genre}
                             onChange={(e) =>
-                                (editValues = {
-                                    ...editValues,
+                                (editValue = {
+                                    ...editValue,
                                     genre: e.target.value,
                                 })
                             }

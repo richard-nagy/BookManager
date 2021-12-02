@@ -10,14 +10,14 @@ import axios from "axios";
 export default function Edit({ selectedRow, unselectRow }) {
     const [row, setRow] = useState(selectedRow);
 
-    let editValues = {};
+    let editValue = {};
 
     const publishers = useSelector(selectPublishers);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (publishers[row]) {
-            editValues = {
+            editValue = {
                 id: publishers[row].id,
                 publisher: publishers[row].publisher,
             };
@@ -30,18 +30,36 @@ export default function Edit({ selectedRow, unselectRow }) {
 
     // Update publisher
     const update = async () => {
-        await axios
-            .put("http://localhost:3001/publishersUpdate", {
-                value: editValues,
-            })
-            .then(() => {
-                dispatch(
-                    updatePublisher({
-                        id: editValues.id,
-                        publisher: editValues.publisher,
-                    })
-                );
-            });
+        let isDuplicate = false;
+        for (const [key, value] of Object.entries(publishers)) {
+            if (value.publisher === editValue.publisher) {
+                isDuplicate = true;
+                break;
+            }
+        }
+
+        // Chcek if the texbox is empty, or if value already exists
+        if (
+            editValue.publisher === "" ||
+            !editValue.publisher.replace(/\s/g, "").length
+        ) {
+            alert("Error!\nEmpty textbox.");
+        } else if (isDuplicate) {
+            alert("Error!\nGiven value already exists.");
+        } else {
+            await axios
+                .put("http://localhost:3001/publishersUpdate", {
+                    value: editValue,
+                })
+                .then(() => {
+                    dispatch(
+                        updatePublisher({
+                            id: editValue.id,
+                            publisher: editValue.publisher,
+                        })
+                    );
+                });
+        }
     };
 
     // Delete publisher
@@ -75,8 +93,8 @@ export default function Edit({ selectedRow, unselectRow }) {
                             type="text"
                             defaultValue={publishers[row].publisher}
                             onChange={(e) =>
-                                (editValues = {
-                                    ...editValues,
+                                (editValue = {
+                                    ...editValue,
                                     publisher: e.target.value,
                                 })
                             }

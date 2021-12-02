@@ -70,21 +70,38 @@ export default function Edit({ selectedRow, unselectRow }) {
 
     // Update book
     const update = async () => {
-        await axios
-            .put("http://localhost:3001/booksUpdate", {
-                value: editValues,
-            })
-            .then(() => {
-                dispatch(
-                    updateRow({
-                        id: editValues.id,
-                        title: editValues.title,
-                        author: editValues.author,
-                        genre: reduxValues.genre,
-                        publisher: reduxValues.publisher,
-                    })
-                );
-            });
+        console.log(editValues);
+        let isTextboxEmpty = false;
+        for (const [key, value] of Object.entries(editValues)) {
+            if (
+                value === "" ||
+                value === null ||
+                !value.toString().replace(/\s/g, "").length
+            ) {
+                isTextboxEmpty = true;
+                break;
+            }
+        }
+
+        if (isTextboxEmpty === true) {
+            alert("Error!\nEmpty textbox.");
+        } else {
+            await axios
+                .put("http://localhost:3001/booksUpdate", {
+                    value: editValues,
+                })
+                .then(() => {
+                    dispatch(
+                        updateRow({
+                            id: editValues.id,
+                            title: editValues.title,
+                            author: editValues.author,
+                            genre: reduxValues.genre,
+                            publisher: reduxValues.publisher,
+                        })
+                    );
+                });
+        }
     };
 
     // Delete book
