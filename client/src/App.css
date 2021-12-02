@@ -1,4 +1,11 @@
-.body {
+body,
+html {
+    padding: 0px;
+    margin: 0px;
+    background-color: #ebebeb;
+}
+
+#body {
     padding: 10px;
 }
 
@@ -16,6 +23,57 @@ th {
     text-align: center;
 }
 
+th {
+    background-color: gray;
+    color: white;
+}
+
+td {
+    cursor: pointer;
+}
+
 .selectedRow {
-    background-color: red;
+    background-color: #ffc0cb;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: gray;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #a27c82;
+}
+
+.active {
+    background-color: #d09da6;
+}
+
+fieldset {
+    width: fit-content;
+    margin-top: 20px;
+}
+
+button {
+    margin-right: 10px;
+}
+
+input,
+select {
+    margin-left: 10px;
 }

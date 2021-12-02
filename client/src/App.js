@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Books from "./Books/books";
 import Genres from "./Genres/genres";
 import Publishers from "./Publishers/publishers";
@@ -32,25 +32,28 @@ function App() {
         <BrowserRouter>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <NavLink to="/" exact={true}>
+                        Home
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="/books">Books</Link>
+                    <NavLink to="/books">Books</NavLink>
                 </li>
                 <li>
-                    <Link to="/genres">Genres</Link>
+                    <NavLink to="/genres">Genres</NavLink>
                 </li>
                 <li>
-                    <Link to="/publishers">Publishers</Link>
+                    <NavLink to="/publishers">Publishers</NavLink>
                 </li>
             </ul>
-
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/books" component={Books} />
-                <Route path="/genres" component={Genres} />
-                <Route path="/publishers" component={Publishers} />
-            </Switch>
+            <div id="body">
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/books" component={Books} />
+                    <Route path="/genres" component={Genres} />
+                    <Route path="/publishers" component={Publishers} />
+                </Switch>
+            </div>
         </BrowserRouter>
     );
 }
