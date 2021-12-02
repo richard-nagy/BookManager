@@ -11,18 +11,36 @@ export default function Add() {
 
     // Add a new publisher
     const addPublisher = async () => {
-        await axios
-            .post("http://localhost:3001/publishersUpload", {
-                data: addValue,
-            })
-            .then((response) => {
-                dispatch(
-                    updatePublisher({
-                        id: response.data.insertId,
-                        publisher: addValue.publisher,
-                    })
-                );
-            });
+        let duplicate = false;
+        for (const [key, value] of Object.entries(publishers)) {
+            if (value.publisher === addValue.publisher) {
+                duplicate = true;
+                break;
+            }
+        }
+
+        // Chcek if the texbox is empty, or if value already exists
+        if (
+            addValue.publisher === "" ||
+            !addValue.publisher.replace(/\s/g, "").length
+        ) {
+            alert("Error!\nEmpty textbox.");
+        } else if (duplicate) {
+            alert("Error!\nGiven value already exists.");
+        } else {
+            await axios
+                .post("http://localhost:3001/publishersUpload", {
+                    data: addValue,
+                })
+                .then((response) => {
+                    dispatch(
+                        updatePublisher({
+                            id: response.data.insertId,
+                            publisher: addValue.publisher,
+                        })
+                    );
+                });
+        }
     };
 
     return (

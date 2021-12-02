@@ -11,18 +11,36 @@ export default function Add() {
 
     // Add a new genbre
     const addGenre = async () => {
-        await axios
-            .post("http://localhost:3001/genresUpload", {
-                data: addValue,
-            })
-            .then((response) => {
-                dispatch(
-                    updateGenre({
-                        id: response.data.insertId,
-                        genre: addValue.genre,
-                    })
-                );
-            });
+        let duplicate = false;
+        for (const [key, value] of Object.entries(genres)) {
+            if (value.genre === addValue.genre) {
+                duplicate = true;
+                break;
+            }
+        }
+
+        // Chcek if the texbox is empty, or if value already exists
+        if (
+            addValue.genre === "" ||
+            !addValue.genre.replace(/\s/g, "").length
+        ) {
+            alert("Error!\nEmpty textbox.");
+        } else if (duplicate) {
+            alert("Error!\nGiven value already exists.");
+        } else {
+            await axios
+                .post("http://localhost:3001/genresUpload", {
+                    data: addValue,
+                })
+                .then((response) => {
+                    dispatch(
+                        updateGenre({
+                            id: response.data.insertId,
+                            genre: addValue.genre,
+                        })
+                    );
+                });
+        }
     };
 
     return (
