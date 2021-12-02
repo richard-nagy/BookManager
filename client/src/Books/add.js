@@ -19,21 +19,38 @@ export default function Add() {
 
     // Add a new book
     const addRow = async () => {
-        await axios
-            .post("http://localhost:3001/booksUpload", {
-                data: addValues,
-            })
-            .then((response) => {
-                dispatch(
-                    updateRow({
-                        id: response.data.insertId,
-                        title: addValues.title,
-                        author: addValues.author,
-                        genre: genres[addValues.genreID].genre,
-                        publisher: publishers[addValues.publisherID].publisher,
-                    })
-                );
-            });
+        let isTextboxEmpty = false;
+        for (const [key, value] of Object.entries(addValues)) {
+            if (
+                value === "" ||
+                value === null ||
+                !value.replace(/\s/g, "").length
+            ) {
+                isTextboxEmpty = true;
+                break;
+            }
+        }
+
+        if (isTextboxEmpty === true) {
+            alert("Error!\nEmpty textbox.");
+        } else {
+            await axios
+                .post("http://localhost:3001/booksUpload", {
+                    data: addValues,
+                })
+                .then((response) => {
+                    dispatch(
+                        updateRow({
+                            id: response.data.insertId,
+                            title: addValues.title,
+                            author: addValues.author,
+                            genre: genres[addValues.genreID].genre,
+                            publisher:
+                                publishers[addValues.publisherID].publisher,
+                        })
+                    );
+                });
+        }
     };
 
     // Dropdown for genres and publishers
