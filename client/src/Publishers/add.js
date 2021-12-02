@@ -11,10 +11,10 @@ export default function Add() {
 
     // Add a new publisher
     const addPublisher = async () => {
-        let duplicate = false;
+        let isDuplicate = false;
         for (const [key, value] of Object.entries(publishers)) {
             if (value.publisher === addValue.publisher) {
-                duplicate = true;
+                isDuplicate = true;
                 break;
             }
         }
@@ -25,7 +25,7 @@ export default function Add() {
             !addValue.publisher.replace(/\s/g, "").length
         ) {
             alert("Error!\nEmpty textbox.");
-        } else if (duplicate) {
+        } else if (isDuplicate) {
             alert("Error!\nGiven value already exists.");
         } else {
             await axios
