@@ -1,4 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# BookManager 
+BookManager is simple website, created by me. Its goal is to give the user the ability to manage a database, which contains books, publishers and genres data.
+
+---
+
+#### How I worked on this project
+- I made a visual plan on Figma: [Design Plans][Design Plans]
+- I organized my tasks on Notion: [Notion Tasks][Notion Tasks]
+- My commits were uploaded to the *develop* branch: [Develop Branch][Develop Branch]
+- I used MySQL as a database service, the database can be imported from the bookmanager.sql file: [file][sql]
+- To create a server for the database I used Express.js
+- I used Redux to manage globally used values
+
+---
+
+#### How to navigate this project
+- Example mysql requests: [books.js][books.js]
+- Example fetch status message handler: [booksSlice.js][booksSlice.js]
+- React-router-dom usage: [App.js][App.js]
+
+---
+
+#### Why I built the project this way
+
+- My main goal was to create a website with the usage of Redux, MySQL and react-router-dom
+- The websites design plan, and the website itself looks really poor, because the main focus was not on the design
+- Expect for the Home, every page is split up to 4 files, with one component in each one. In my opinion, this is the best way to split up the components, and it's also better for the coordination.
+
+---
 
 ## Available Scripts
 
@@ -42,3 +70,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+[Design Plans]: https://www.figma.com/proto/zMBUqtUegQlwZ70dPo2LiK/Book-Manager?node-id=3%3A2&scaling=min-zoom&page-id=0%3A1 "Design Plans"
+[Notion Tasks]: https://orchid-rat-c72.notion.site/fb5da56e8853408c8dea62ffe985f29b?v=98ac73f7d10945e781bbebec3fa86716 "Notion Tasks"
+[Develop Branch]: https://github.com/BigRicsoo/BookManager/tree/develop "Develop Branch"
+[sql]: https://github.com/BigRicsoo/BookManager/blob/main/bookmanager.sql "file"
+[books.js]: https://github.com/BigRicsoo/BookManager/blob/main/server/books.js "books.js"
+[booksSlice.js]: https://github.com/BigRicsoo/BookManager/blob/1de535883033e01746bc62194ef91c8108bae9c7/client/src/Books/booksSlice.js#L34 "booksSlice.js"
+[App.js]: https://github.com/BigRicsoo/BookManager/blob/1de535883033e01746bc62194ef91c8108bae9c7/client/src/App.js#L32 "App.js"
